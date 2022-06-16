@@ -1,0 +1,68 @@
+{
+    "name": "altra/context",
+    "type": "library",
+    "description": "Library to filter HTTP request responses by context.",
+    "keywords": [
+        "context",
+        "laravel",
+        "filters"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Altra",
+            "email": "informatica@altracorporacion.es"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "astrotomic/laravel-translatable": "^11.10",
+        "illuminate/contracts": "^9.0",
+        "illuminate/database": "9.x-dev",
+        "illuminate/support": "9.x-dev",
+        "spatie/laravel-package-tools": "^1.9.2"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.8",
+        "nunomaduro/collision": "^6.0",
+        "nunomaduro/larastan": "^2.0.1",
+        "orchestra/testbench": "^7.0",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5",
+        "spatie/laravel-ray": "^1.26"
+    },
+    "autoload": {
+        "psr-4": {
+            "Altra\\Context\\": "src/",
+            "Altra\\Context\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Altra\\Context\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Altra\\Context\\ContextServiceProvider",
+                "Astrotomic\\Translatable\\TranslatableServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
