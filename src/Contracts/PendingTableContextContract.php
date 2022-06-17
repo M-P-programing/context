@@ -21,7 +21,7 @@ interface PendingTableContextContract
   public function setInitialQuery(Builder $query): PendingTableContext;
 
   /* Set sort direction for query */
-  public function sortDescending($descending): PendingTableContext;
+  public function sortDescending(bool $descending): PendingTableContext;
 
   /* Sort By field */
   public function sortBy(string $sortBy): PendingTableContext;

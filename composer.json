@@ -58,9 +58,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Altra\\Context\\ContextServiceProvider",
-                "Astrotomic\\Translatable\\TranslatableServiceProvider"
-            ]
+                "Altra\\Context\\ContextServiceProvider"            ]
         }
     },
     "minimum-stability": "dev",

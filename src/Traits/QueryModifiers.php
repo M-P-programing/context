@@ -25,15 +25,17 @@ trait QueryModifiers
     $this->context->query
       ->when($this->context->sortBy != null, function ($query) {
         foreach (explode(', ', $this->context->sortBy) as $value) {
-          $sortBy                             = $this->context->sortBy;
-          $sortDir                            = $this->context->sortDir;
-          [$explodedSortBy, $explodedSortDir] = explode(' ', $value);
+          $sortBy          = $this->context->sortBy;
+          $sortDir         = $this->context->sortDir;
+          $exploded        = explode(' ', $value);
+          $explodedSortBy  = $exploded[0];
+          $explodedSortDir = $exploded[1] ?? null;
           if ($explodedSortDir) {
             $sortBy  = $explodedSortBy;
             $sortDir = $explodedSortDir;
           }
+
           //Check if field is translatable or not to apply order by on those fields as well
-          $sortBy = $explodedSortBy;
           $query->when(in_array($sortBy, $this->context->translatableFields), function ($query) use ($sortBy, $sortDir) {
             $query->orderByTranslation($sortBy, $sortDir);
           }, function ($query) use ($sortBy, $sortDir) {

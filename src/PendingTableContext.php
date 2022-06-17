@@ -103,7 +103,7 @@ class PendingTableContext implements PendingTableContextContract
     return $this;
   }
 
-  public function sortDescending($descending): PendingTableContext
+  public function sortDescending(bool $descending): PendingTableContext
   {
     $this->sortDir = $descending ? 'desc' : 'asc';
     return $this;
