@@ -14,6 +14,7 @@ cache:
 
 stages:
   - test
+  - tag
   - deploy
 
 testing:
@@ -24,6 +25,27 @@ testing:
   # run tests
   - echo "Running PHPUnit Tests"
   - ./vendor/bin/phpunit 
+
+tag_release:
+  stage: tag
+  only:
+    - master
+  script:
+    - VERSION="$(php -r "echo json_decode(file_get_contents('./composer.json'), true)['version'];")";
+    - MESSAGE="$(php -r "echo json_encode(['name' => 'Version $VERSION', 'tag_name' => '$VERSION', 'description' => file_get_contents('./changelog/$VERSION.md')]);")";
+    - git config --global user.email "your_email"
+    - git config --global user.name "username"
+    - git remote add api-origin https://oauth2:${OAUTH2_TOKEN}@gitlab.com/altra_airzone/altra-context
+    - >
+      if [ $(git tag -l "$VERSION") ]; then
+        echo "Version $VERSION already exists"
+      else
+        git tag -a $VERSION -m "Version $VERSION"
+        git push api-origin $VERSION
+        curl --header 'Content-Type: application/json' --header "PRIVATE-TOKEN: $OAUTH2_TOKEN" \
+           --data "$MESSAGE" \
+           --request POST https://gitlab.com/api/v4/projects/altra_airzone/altra-context/releases
+      fi
 
 deploy_composer:
   only:
