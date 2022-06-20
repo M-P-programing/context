@@ -28,10 +28,10 @@ class PendingTableContext implements PendingTableContextContract
   public $sortBy;
 
   /** @var int $perPage */
-  public $perPage;
+  public $perPage = 15;
 
   /** @var int $perPage */
-  public $currentPage;
+  public $currentPage = 1;
 
   /** @var bool $paginate */
   public $paginate = true;
@@ -95,6 +95,16 @@ class PendingTableContext implements PendingTableContextContract
       ->perPage($context?->perPage)
       ->currentPage($context?->currentPage)
     ;
+  }
+
+  public function setContextFromRequest(string $key = 'context'): PendingTableContext
+  {
+    if (request()->filled($key)) {
+      $context = json_decode(request($key));
+      $this->setContext($context);
+    }
+
+    return $this;
   }
 
   public function setInitialQuery(Builder $query): PendingTableContext
@@ -174,7 +184,6 @@ class PendingTableContext implements PendingTableContextContract
    */
   public function withCustomFilter($callback): PendingTableContext
   {
-    $this->paginate     = false;
     $this->customFilter = $callback;
 
     return $this;
@@ -200,7 +209,7 @@ class PendingTableContext implements PendingTableContextContract
     }
   }
 
-  public function withResource($resource): PendingTableContext
+  public function withResource(string $resource): PendingTableContext
   {
 
     $this->resource = $resource;
@@ -208,7 +217,7 @@ class PendingTableContext implements PendingTableContextContract
     return $this;
   }
 
-  public function includeRelations(array|string $with): PendingTableContext
+  public function includeRelations(array | string $with): PendingTableContext
   {
     $this->with = $with;
 
