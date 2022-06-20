@@ -2,10 +2,10 @@ image: composer:latest
 
 before_script:  
   # Update Composer
-  - sudo composer self-update  
+  - composer self-update  
   
   # Install project dependencies.
-  - sudo COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+  - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
 cache:
   key: ${CI_BUILD_REF_NAME}
