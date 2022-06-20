@@ -220,9 +220,4 @@ class ContextTest extends TestCase
     $this->assertCount(1, $testClass);
   }
 
-  public function test_test_fail()
-  {
-    $this->assertTrue(false);
-  }
-
 }
