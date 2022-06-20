@@ -1,8 +1,9 @@
 <?php
 
 use Altra\Context\Tests\TestCase;
-use Altra\Context\Tests\TestSupport\TestClass;
+use Altra\Context\Tests\TestSupport\HasOneRelation;
 use Altra\Context\Tests\TestSupport\Resources\TestClassResource;
+use Altra\Context\Tests\TestSupport\TestClass;
 use Illuminate\Database\Eloquent\Collection;
 
 class ContextTest extends TestCase
@@ -13,6 +14,11 @@ class ContextTest extends TestCase
 
     $this->generic_context = json_decode('{"filter":{"all":""},"sortBy":"","sortDesc":false,"perPage":10,"currentPage":1}');
     $this->testClasses     = TestClass::factory()->count(5)->create();
+    $this->one_relation    = HasOneRelation::create([
+      'test_class_id' => $this->testClasses->first()->id,
+      'column_1'      => 'Prueba',
+      'column_2'      => 'Relación',
+    ]);
   }
 
   public function test_query_result_without_context()
@@ -86,25 +92,33 @@ class ContextTest extends TestCase
   public function test_response_transformed_by_resource()
   {
     $testClass = TestClass::tableContext()
-    ->withResource(TestClassResource::class)
-    ->get();
+      ->withResource(TestClassResource::class)
+      ->get();
 
     $this->assertInstanceOf(TestClassResource::class, $testClass->first());
 
   }
 
-  // public function test_custom_filter_after_query()
-  // {
-  //   $testClass = TestClass::tableContext()
-  //     ->doNotPaginate()
-  //     ->get();
+  public function test_relations_on_response()
+  {
+    $testClass = TestClass::tableContext()
+      ->includeRelations(['has_one_relation'])
+      ->get();
+    $this->assertEquals(1, $testClass->first()->has_one_relation->count());
+  }
 
-  //   $prueba = $testClass->withCustomFilter(function($test){
-  //       dd($test);
-  //   });
+  public function test_custom_filter_after_query()
+  {
+    $testClass = TestClass::tableContext()
+      ->doNotPaginate()
+      ->get();
 
-  //   dd($prueba);
-  // }
+    $prueba = $testClass->withCustomFilter(function($test){
+        dd($test);
+    });
+
+    dd($prueba);
+  }
 
   // public function test_sort_by_method()
   // {
@@ -120,5 +134,14 @@ class ContextTest extends TestCase
   //  $this->assertEquals($laravelOrderBy,$testClass->toArray());
 
   // }
+  public function test_when_conditional()
+  {
+    $conditional = true;
+    $testClass = TestClass::tableContext()
+    ->when($conditional, function($query){
+      return $query->where('id', 1);
+    })
+    ->get();
+  }
 
 }

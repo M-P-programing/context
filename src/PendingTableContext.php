@@ -208,7 +208,7 @@ class PendingTableContext implements PendingTableContextContract
     return $this;
   }
 
-  public function includeRelations($with): PendingTableContext
+  public function includeRelations(array|string $with): PendingTableContext
   {
     $this->with = $with;
 

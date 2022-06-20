@@ -48,7 +48,7 @@ interface PendingTableContextContract
   public function withResource($resource): PendingTableContext;
 
   /* Add relations to entity response */
-  public function includeRelations(a$with): PendingTableContext;
+  public function includeRelations(array|string $with): PendingTableContext;
 
   /* Execute action to return query result */
   public function get();
