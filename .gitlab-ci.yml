@@ -1,12 +1,5 @@
 image: composer:latest
 
-before_script:  
-  # Update Composer
-  - composer self-update  
-  
-  # Install project dependencies.
-  - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-
 cache:
   key: ${CI_BUILD_REF_NAME}
   paths:
@@ -15,7 +8,6 @@ cache:
 stages:
   - test
   - tag
-  - deploy
 
 testing:
   rules:
@@ -24,6 +16,7 @@ testing:
   script:
   # run tests
   - echo "Running PHPUnit Tests"
+  - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
   - ./vendor/bin/phpunit 
 
 tag_release:
@@ -35,7 +28,7 @@ tag_release:
     - MESSAGE="$(php -r "echo json_encode(['name' => 'Version $VERSION', 'tag_name' => '$VERSION', 'description' => file_get_contents('./changelog/$VERSION.md')]);")";
     - git config --global user.email "your_email"
     - git config --global user.name "username"
-    - git remote add api-origin https://oauth2:${OAUTH2_TOKEN}@gitlab.com/altra_airzone/altra-context
+    - git remote add api-origin https://oauth2:${OAUTH2_TOKEN}@gitlab.com/informatica_altra/altra-context
     - >
       if [ $(git tag -l "$VERSION") ]; then
         echo "Version $VERSION already exists"
@@ -44,12 +37,7 @@ tag_release:
         git push api-origin $VERSION
         curl --header 'Content-Type: application/json' --header "PRIVATE-TOKEN: $OAUTH2_TOKEN" \
            --data "$MESSAGE" \
-           --request POST https://gitlab.com/api/v4/projects/altra_airzone/altra-context/releases
+           --request POST https://gitlab.com/api/v4/projects/informatica_altra/altra-context/releases
       fi
 
-deploy_composer:
-  only:
-    - tags
-  stage: deploy
-  script:
-    - curl -sS --show-error --fail --data tag=${CI_COMMIT_TAG} "https://__token__:${DEPLOY_TOKEN}@gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/composer"
+
