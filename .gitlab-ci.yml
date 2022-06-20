@@ -26,8 +26,8 @@ tag_release:
   script:
     - VERSION="$(php -r "echo json_decode(file_get_contents('./composer.json'), true)['version'];")";
     - MESSAGE="$(php -r "echo json_encode(['name' => 'Version $VERSION', 'tag_name' => '$VERSION', 'description' => file_get_contents('./changelog/$VERSION.md')]);")";
-    - git config --global user.email "your_email"
-    - git config --global user.name "username"
+    - git config --global user.email "informatica@altracorporacion.es"
+    - git config --global user.name "informatica_altra"
     - git remote add api-origin https://oauth2:${OAUTH2_TOKEN}@gitlab.com/informatica_altra/altra-context
     - >
       if [ $(git tag -l "$VERSION") ]; then
