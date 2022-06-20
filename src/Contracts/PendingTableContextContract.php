@@ -17,6 +17,9 @@ interface PendingTableContextContract
   /* Set initial context */
   public function setContext(mixed $context): PendingTableContext;
 
+  /* Set initial context from request*/
+  public function setContextFromRequest(string $key): PendingTableContext;
+
   /* Set initial query */
   public function setInitialQuery(Builder $query): PendingTableContext;
 
@@ -45,10 +48,10 @@ interface PendingTableContextContract
   public function when($condition, $callback, $else): PendingTableContext;
 
   /* Return result with resource structure chosen */
-  public function withResource($resource): PendingTableContext;
+  public function withResource(string $resource): PendingTableContext;
 
   /* Add relations to entity response */
-  public function includeRelations(array|string $with): PendingTableContext;
+  public function includeRelations(array | string $with): PendingTableContext;
 
   /* Execute action to return query result */
   public function get();

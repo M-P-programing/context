@@ -74,16 +74,25 @@ trait QueryModifiers
    */
   private function queryResultWithPaginationConditional()
   {
-    if ($this->context->paginate) {
-
-      if ($this->context->resource != null) {
-        return $this->resourcePaginated($this->context->query->paginate($this->context->perPage), $this->context->resource);
+    if ($this->context->customFilter == null) {
+      if ($this->context->paginate) {
+        if ($this->context->resource != null) {
+          return $this->resourcePaginated($this->context->query->paginate($this->context->perPage), $this->context->resource);
+        }
+        return $this->context->query->paginate($this->context->perPage);
       }
-      return $this->context->query->paginate($this->context->perPage);
+      if ($this->context->resource != null) {
+        return $this->context->resource::collection($this->context->query->get());
+      }
+
+      return $this->context->query->get();
     } else {
       return $this->context->query->get()->when(is_callable($this->context->customFilter), function ($collection) {
         $data = ($this->context->customFilter)($collection);
-        if ($this->context->currentPage == -1) {
+        if ($this->context->currentPage == -1 || !$this->context->paginate) {
+          if ($this->context->resource != null) {
+            return $this->context->resource::collection($data);
+          }
           return $data;
         }
 
