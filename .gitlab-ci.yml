@@ -2,10 +2,10 @@ image: edbizarro/gitlab-ci-pipeline-php:8.0-alpine
 
 before_script:  
   # Update Composer
-  - composer self-update  
+  - sudo composer self-update  
   
   # Install project dependencies.
-  - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+  - sudo composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
 cache:
   key: ${CI_BUILD_REF_NAME}
