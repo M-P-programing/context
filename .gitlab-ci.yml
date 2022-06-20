@@ -1,4 +1,4 @@
-image: chilio/laravel-dusk-ci:stable
+image: edbizarro/gitlab-ci-pipeline-php:8.0-alpine
 
 before_script:  
   # Update Composer
