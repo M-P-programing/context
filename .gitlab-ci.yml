@@ -1,4 +1,4 @@
-image: edbizarro/gitlab-ci-pipeline-php:8.0-alpine
+image: composer:latest
 
 before_script:  
   # Update Composer
