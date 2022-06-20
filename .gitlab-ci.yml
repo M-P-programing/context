@@ -5,7 +5,7 @@ before_script:
   - sudo composer self-update  
   
   # Install project dependencies.
-  - sudo composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+  - sudo COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
 cache:
   key: ${CI_BUILD_REF_NAME}
