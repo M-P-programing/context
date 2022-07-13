@@ -31,6 +31,9 @@ interface PendingTableContextContract
     /* Set filters */
     public function withFilters($filters): PendingTableContext;
 
+    /* Add filter */
+    public function addFilter(string $key, mixed $value): PendingTableContext;
+
     /* Set items per page */
     public function perPage($perPage): PendingTableContext;
 

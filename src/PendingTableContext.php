@@ -154,6 +154,13 @@ class PendingTableContext implements PendingTableContextContract
         return $this;
     }
 
+    public function addFilter(string $key, mixed $value): PendingTableContext
+    {
+        $this->filter->put($key, $value);
+
+        return $this;
+    }
+
     public function perPage($perPage): PendingTableContext
     {
         $this->perPage = $perPage;
