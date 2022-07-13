@@ -11,41 +11,44 @@ use Illuminate\Database\Eloquent\Model;
 
 class TestClass extends Model implements Contextable, TranslatableContract
 {
+    use UseTableContext, HasFactory, Translatable;
 
-  use UseTableContext, HasFactory, Translatable;
+    protected $guarded = false;
 
-  protected $guarded              = false;
-  protected $translatedAttributes = ['translation_1', 'translation_2'];
-  protected $table_context_fields = [
-    'column_1',
-    'column_2',
-  ];
-  protected $table_context_translatable_fields = [
-    'translation_1',
-    'translation_1',
-  ];
-  protected $table_context_relation_fields = [
-    'has_one_relation',
-    'has_many_relation',
-  ];
+    protected $translatedAttributes = ['translation_1', 'translation_2'];
 
-  public function has_one_relation()
-  {
-    return $this->hasOne(HasOneRelation::class);
-  }
+    protected $table_context_fields = [
+        'column_1',
+        'column_2',
+    ];
 
-  public function has_many_relation()
-  {
-    return $this->hasMany(HasManyRelation::class);
-  }
+    protected $table_context_translatable_fields = [
+        'translation_1',
+        'translation_1',
+    ];
 
-  /**
-   * Create a new factory instance for the model.
-   *
-   * @return \Illuminate\Database\Eloquent\Factories\Factory
-   */
-  protected static function newFactory()
-  {
-    return \Altra\Context\Database\Factories\TestClassFactory::new ();
-  }
+    protected $table_context_relation_fields = [
+        'has_one_relation',
+        'has_many_relation',
+    ];
+
+    public function has_one_relation()
+    {
+        return $this->hasOne(HasOneRelation::class);
+    }
+
+    public function has_many_relation()
+    {
+        return $this->hasMany(HasManyRelation::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Altra\Context\Database\Factories\TestClassFactory::new();
+    }
 }

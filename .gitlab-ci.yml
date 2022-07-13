@@ -3,7 +3,7 @@ image: composer:latest
 cache:
   key: ${CI_BUILD_REF_NAME}
   paths:
-  - vendor/
+    - vendor/
 
 stages:
   - test
@@ -14,10 +14,11 @@ testing:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
   stage: test
   script:
-  # run tests
-  - echo "Running PHPUnit Tests"
-  - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-  - ./vendor/bin/phpunit 
+    # run tests
+    - echo "Running PHPUnit Tests"
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - composer lint
+    - composer test
 
 tag_release:
   stage: tag
@@ -39,5 +40,3 @@ tag_release:
            --data "$MESSAGE" \
            --request POST https://gitlab.com/api/v4/projects/informatica_altra/altra-context/releases
       fi
-
-

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class TestClassTranslation extends Model
 {
-  protected $guarded = false;
+    protected $guarded = false;
 }
