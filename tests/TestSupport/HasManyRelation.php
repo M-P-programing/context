@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class HasManyRelation extends Model
 {
-  protected $guarded = false;
-  protected $table   = 'test_class_has_many_relations';
+    protected $guarded = false;
+
+    protected $table = 'test_class_has_many_relations';
 }
