@@ -210,4 +210,14 @@ class ContextTest extends TestCase
         $this->assertInstanceOf(TestClassResource::class, $testClass->first());
         $this->assertCount(1, $testClass);
     }
+
+    public function test_add_filters()
+    {
+        $pendingContext = TestClass::tableContext()
+          ->addFilter('column_1', $this->testClasses->first()->column_1);
+        $this->assertEquals(['all' => '', 'column_1' => $this->testClasses->first()->column_1], $pendingContext->filter->toArray());
+
+        $testClass = $pendingContext->get();
+        $this->assertContains($this->testClasses->first()->column_1, $testClass->pluck('column_1')->toArray());
+    }
 }
