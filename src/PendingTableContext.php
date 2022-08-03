@@ -27,7 +27,7 @@ class PendingTableContext implements PendingTableContextContract
     public $sortBy;
 
     /** @var int */
-    public $perPage = 15;
+    public $perPage = 9999;
 
     /** @var int */
     public $currentPage = 1;
@@ -85,11 +85,13 @@ class PendingTableContext implements PendingTableContextContract
 
     public function setContext(mixed $context): PendingTableContext
     {
+        $perPage = $context?->perPage ?? $this->perPage;
+
         return $this
       ->sortDescending($context?->sortDesc)
       ->sortBy($context?->sortBy)
       ->withFilters($context?->filter)
-      ->perPage($context?->perPage)
+      ->perPage($perPage)
       ->currentPage($context?->currentPage);
     }
 

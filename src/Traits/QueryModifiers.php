@@ -80,24 +80,26 @@ trait QueryModifiers
                 }
 
                 return $this->context->query->paginate($this->context->perPage);
-            }
-            if ($this->context->resource != null) {
-                return $this->context->resource::collection($this->context->query->get());
-            }
+            } else {
+                $data = $this->context->query->get();
+                if ($this->context->resource != null) {
+                    return ['data' => $this->context->resource::collection($data)];
+                }
 
-            return $this->context->query->get();
+                return ['data' => $data];
+            }
         } else {
             return $this->context->query->get()->when(is_callable($this->context->customFilter), function ($collection) {
                 $data = ($this->context->customFilter)($collection);
-                if ($this->context->currentPage == -1 || ! $this->context->paginate) {
+                if (! $this->context->paginate) {
                     if ($this->context->resource != null) {
-                        return $this->context->resource::collection($data);
+                        return ['data' => $this->context->resource::collection($data)];
                     }
 
-                    return $data;
+                    return ['data' => $data->values()];
                 }
 
-                $paginatedData = new LengthAwarePaginator($data->forPage($this->context->currentPage, $this->context->perPage), $data->count(), $this->context->perPage, $this->context->currentPage, []);
+                $paginatedData = new LengthAwarePaginator($data->values()->forPage($this->context->currentPage, $this->context->perPage), $data->count(), $this->context->perPage, $this->context->currentPage, []);
 
                 if ($this->context->resource != null) {
                     $paginatedData = $this->resourcePaginated($paginatedData, $this->context->resource);
