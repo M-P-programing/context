@@ -70,7 +70,7 @@ class ContextTest extends TestCase
       ->doNotPaginate()
       ->get();
 
-        $this->assertEmpty($testClass->toArray());
+        $this->assertEmpty($testClass['data']->toArray());
     }
 
     public function test_response_not_paginated()
@@ -78,7 +78,7 @@ class ContextTest extends TestCase
         $testClass = TestClass::tableContext()
       ->doNotPaginate()
       ->get();
-        $this->assertInstanceOf(Collection::class, $testClass);
+        $this->assertInstanceOf(Collection::class, $testClass['data']);
         $this->assertNotInstanceOf(\Illuminate\Pagination\LengthAwarePaginator::class, $testClass);
     }
 
@@ -90,7 +90,7 @@ class ContextTest extends TestCase
       ->setInitialQuery($initialQuery)
       ->get();
 
-        $this->assertCount(2, $testClass);
+        $this->assertCount(2, $testClass['data']);
     }
 
     public function test_results_per_page()
@@ -150,7 +150,7 @@ class ContextTest extends TestCase
       })
       ->get();
 
-        $this->assertEquals(1, $testClass->first()->id);
+        $this->assertEquals(1, $testClass['data']->first()->id);
         $this->assertCount(1, $testClass);
     }
 
@@ -164,7 +164,7 @@ class ContextTest extends TestCase
       ->get();
 
         $laravelOrderBy = TestClass::orderByDesc('column_1')->pluck('column_1')->toArray();
-        $this->assertEquals($laravelOrderBy, $testClass->pluck('column_1')->toArray());
+        $this->assertEquals($laravelOrderBy, $testClass['data']->pluck('column_1')->toArray());
     }
 
     public function test_when_conditional_false()
@@ -179,7 +179,7 @@ class ContextTest extends TestCase
       })
       ->get();
 
-        $this->assertInstanceOf(TestClass::class, $testClass->first());
+        $this->assertInstanceOf(TestClass::class, $testClass['data']->first());
     }
 
     public function test_when_conditional_true()
@@ -194,7 +194,19 @@ class ContextTest extends TestCase
       })
       ->get();
 
-        $this->assertInstanceOf(TestClassResource::class, $testClass->first());
+        $this->assertInstanceOf(TestClassResource::class, $testClass['data']->first());
+    }
+
+    public function test_custom_filter_without_pagination_and_without_resource()
+    {
+        $testClass = TestClass::tableContext()
+      ->doNotPaginate()
+      ->withCustomFilter(function ($collection) {
+          return $collection->where('id', 1);
+      })
+      ->get();
+
+        $this->assertCount(1, $testClass['data']);
     }
 
     public function test_custom_filter_without_pagination_and_with_resource()
@@ -207,8 +219,8 @@ class ContextTest extends TestCase
       })
       ->get();
 
-        $this->assertInstanceOf(TestClassResource::class, $testClass->first());
-        $this->assertCount(1, $testClass);
+        $this->assertInstanceOf(TestClassResource::class, $testClass['data']->first());
+        $this->assertCount(1, $testClass['data']);
     }
 
     public function test_add_filters()
