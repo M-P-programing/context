@@ -1,6 +1,6 @@
 <?php
 
-// config for Altra/Context
+// config for Context
 return [
 
 ];

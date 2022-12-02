@@ -1,13 +1,13 @@
 <?php
 
-namespace Altra\Context\Traits;
+namespace Context\Traits;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 /**
- * This file is part of Altra,
+ * This file is part of MP Programming,
  * Library that makes it possible to filter by context for HTTP request responses.
  *
  * @license MIT

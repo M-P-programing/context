@@ -1,6 +1,6 @@
 <?php
 
-namespace Altra\Context;
+namespace Context;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

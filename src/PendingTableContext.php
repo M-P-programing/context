@@ -1,13 +1,13 @@
 <?php
 
-namespace Altra\Context;
+namespace Context;
 
-use Altra\Context\Actions\SearchByTableContext;
-use Altra\Context\Contracts\PendingTableContextContract;
+use Context\Actions\SearchByTableContext;
+use Context\Contracts\PendingTableContextContract;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * This file is part of Altra,
+ * This file is part of MP Programming,
  * Library that makes it possible to filter by context for HTTP request responses.
  *
  * @license MIT

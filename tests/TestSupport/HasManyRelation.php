@@ -1,6 +1,6 @@
 <?php
 
-namespace Altra\Context\Tests\TestSupport;
+namespace Context\Tests\TestSupport;
 
 use Illuminate\Database\Eloquent\Model;
 

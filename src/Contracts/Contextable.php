@@ -1,9 +1,9 @@
 <?php
 
-namespace Altra\Context\Contracts;
+namespace Context\Contracts;
 
 /**
- * This file is part of Altra,
+ * This file is part of MP Programming,
  * Library that makes it possible to filter by context for HTTP request responses.
  *
  * @license MIT

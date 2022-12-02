@@ -1,6 +1,6 @@
 <?php
 
-namespace Altra\Context\Tests\TestSupport\Resources;
+namespace Context\Tests\TestSupport\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

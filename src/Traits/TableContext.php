@@ -1,19 +1,19 @@
 <?php
 
-namespace Altra\Context\Traits;
+namespace Context\Traits;
 
-use Altra\Context\PendingTableContext;
+use Context\PendingTableContext;
 
 /**
- * This file is part of Altra,
+ * This file is part of MP Programming,
  * Library that makes it possible to filter by context for HTTP request responses.
  *
  * @license MIT
  */
-trait UseTableContext
+trait TableContext
 {
     /**
-     * @return \Altra\Context\PendingTableContext
+     * @return \Context\PendingTableContext
      */
     public static function tableContext(): PendingTableContext
     {

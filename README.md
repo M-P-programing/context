@@ -4,4 +4,4 @@
 
 ### Installation
 
-run composer require "altra/context"
+run composer require "laravel/context"

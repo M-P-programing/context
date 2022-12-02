@@ -1,12 +1,12 @@
 <?php
 
-namespace Altra\Context\Actions;
+namespace Context\Actions;
 
-use Altra\Context\PendingTableContext;
-use Altra\Context\Traits\QueryModifiers;
+use Context\PendingTableContext;
+use Context\Traits\QueryModifiers;
 
 /**
- * This file is part of Altra,
+ * This file is part of MP Programming
  * Library that makes it possible to filter by context for HTTP request responses.
  *
  * @license MIT
@@ -21,7 +21,7 @@ class SearchByTableContext
     /**
      * Executes the query from the table context
      *
-     * @param  \Altra\Context\PendingTableContext  $context
+     * @param  \Context\PendingTableContext  $context
      * @return
      */
     public function execute(PendingTableContext $context)

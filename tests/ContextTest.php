@@ -1,9 +1,9 @@
 <?php
 
-use Altra\Context\Tests\TestCase;
-use Altra\Context\Tests\TestSupport\HasOneRelation;
-use Altra\Context\Tests\TestSupport\Resources\TestClassResource;
-use Altra\Context\Tests\TestSupport\TestClass;
+use Context\Tests\TestCase;
+use Context\Tests\TestSupport\HasOneRelation;
+use Context\Tests\TestSupport\Resources\TestClassResource;
+use Context\Tests\TestSupport\TestClass;
 use Illuminate\Database\Eloquent\Collection;
 
 class ContextTest extends TestCase

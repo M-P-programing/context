@@ -1,8 +1,8 @@
 <?php
 
-namespace Altra\Context\Tests;
+namespace Context\Tests;
 
-use Altra\Context\ContextServiceProvider;
+use Context\ContextServiceProvider;
 use Astrotomic\Translatable\TranslatableServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,7 +17,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Altra\\Context\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Context\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

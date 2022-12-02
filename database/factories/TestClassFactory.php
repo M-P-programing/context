@@ -1,8 +1,8 @@
 <?php
 
-namespace Altra\Context\Database\Factories;
+namespace Context\Database\Factories;
 
-use Altra\Context\Tests\TestSupport\TestClass;
+use Context\Tests\TestSupport\TestClass;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TestClassFactory extends Factory
