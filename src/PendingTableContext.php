@@ -139,10 +139,9 @@ class PendingTableContext implements PendingTableContextContract
 
             $this->sortBy = collect($explodedSortBy)->join(', ');
         } else {
-
             if ($this->sortBy == 'created_at' || $this->sortBy == 'updated_at') {
-                $this->sortBy = $this->tableName . '.' . $this->sortBy;
-              }
+                $this->sortBy = $this->tableName.'.'.$this->sortBy;
+            }
         }
 
         return $this;

@@ -2,8 +2,8 @@
 
 namespace Context\Tests;
 
-use Context\ContextServiceProvider;
 use Astrotomic\Translatable\TranslatableServiceProvider;
+use Context\ContextServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as Orchestra;
