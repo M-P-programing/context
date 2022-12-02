@@ -1,5 +1,5 @@
 {
-    "name": "laravel/context",
+    "name": "mpprogramming/context",
     "version": "1.0.0",
     "type": "library",
     "description": "Library to filter HTTP request responses by context.",
