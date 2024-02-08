@@ -301,6 +301,12 @@ trait QueryModifiers
             return in_array($field, $this->context->exactFields) ? $query->where($key->first(), $value) : $query->where($key->first(), 'LIKE', '%'.$value.'%');
         }
 
+        // If $value contains "," it means that they are multiple values
+        if (str_contains($value, ',')) {
+            $values = explode(',', $value);
+            return $query->whereIn($field, $values);
+        }
+
         return in_array($field, $this->context->exactFields) ? $query->where($key, $value) : $query->where($key, 'LIKE', '%'.$value.'%');
     }
 
